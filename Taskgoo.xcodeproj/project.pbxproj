@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A17BF5BCEB4F7CE149A50D0 /* Pods_Taskgoo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2268D28B706241B4741755D5 /* Pods_Taskgoo.framework */; };
 		C3CE937423661DB20021C42E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CE937323661DB20021C42E /* AppDelegate.swift */; };
 		C3CE937623661DB20021C42E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CE937523661DB20021C42E /* ViewController.swift */; };
 		C3CE937923661DB20021C42E /* Taskgoo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3CE937723661DB20021C42E /* Taskgoo.xcdatamodeld */; };
@@ -15,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2268D28B706241B4741755D5 /* Pods_Taskgoo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Taskgoo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D1537EC1C9869AE8880A8B7 /* Pods-Taskgoo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskgoo.release.xcconfig"; path = "Target Support Files/Pods-Taskgoo/Pods-Taskgoo.release.xcconfig"; sourceTree = "<group>"; };
+		BCAE09BE933AC6D71D631BE9 /* Pods-Taskgoo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskgoo.debug.xcconfig"; path = "Target Support Files/Pods-Taskgoo/Pods-Taskgoo.debug.xcconfig"; sourceTree = "<group>"; };
 		C3CE937023661DB20021C42E /* Taskgoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskgoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CE937323661DB20021C42E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3CE937523661DB20021C42E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -30,17 +34,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A17BF5BCEB4F7CE149A50D0 /* Pods_Taskgoo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B87AD5E9EEAD3A554C66CA7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BCAE09BE933AC6D71D631BE9 /* Pods-Taskgoo.debug.xcconfig */,
+				6D1537EC1C9869AE8880A8B7 /* Pods-Taskgoo.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BF2C4BF40FD96BBB444F9D00 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2268D28B706241B4741755D5 /* Pods_Taskgoo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C3CE936723661DB20021C42E = {
 			isa = PBXGroup;
 			children = (
 				C3CE937223661DB20021C42E /* Taskgoo */,
 				C3CE937123661DB20021C42E /* Products */,
+				5B87AD5E9EEAD3A554C66CA7 /* Pods */,
+				BF2C4BF40FD96BBB444F9D00 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,9 +98,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C3CE938323661DB70021C42E /* Build configuration list for PBXNativeTarget "Taskgoo" */;
 			buildPhases = (
+				C168E6107F7116236D08D4BB /* [CP] Check Pods Manifest.lock */,
 				C3CE936C23661DB20021C42E /* Sources */,
 				C3CE936D23661DB20021C42E /* Frameworks */,
 				C3CE936E23661DB20021C42E /* Resources */,
+				6164C29DC5E1BAE79A1B7ACA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6164C29DC5E1BAE79A1B7ACA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taskgoo/Pods-Taskgoo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taskgoo/Pods-Taskgoo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskgoo/Pods-Taskgoo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C168E6107F7116236D08D4BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Taskgoo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C3CE936C23661DB20021C42E /* Sources */ = {
@@ -271,6 +340,7 @@
 		};
 		C3CE938423661DB70021C42E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCAE09BE933AC6D71D631BE9 /* Pods-Taskgoo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Taskgoo/Taskgoo.entitlements;
@@ -291,6 +361,7 @@
 		};
 		C3CE938523661DB70021C42E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6D1537EC1C9869AE8880A8B7 /* Pods-Taskgoo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Taskgoo/Taskgoo.entitlements;
