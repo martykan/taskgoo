@@ -1,10 +1,10 @@
 PODS:
   - Alamofire (5.0.0-rc.3)
-  - p2.OAuth2 (4.2.0)
+  - p2.OAuth2 (5.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
-  - p2.OAuth2 (~> 4.2)
+  - p2.OAuth2 (~> 5.0)
 
 SPEC REPOS:
   trunk:
@@ -13,8 +13,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
-  p2.OAuth2: d5ea9b928fc5d10d088d419db6f3380578b6f866
+  p2.OAuth2: 5d203b46c2857b4bbcca3e521089959e7b3b5a5c
 
-PODFILE CHECKSUM: 95351d5ca98953984a88ebf4ef399da76bedb17a
+PODFILE CHECKSUM: 06c4bc40aa047b54b618ef83894334cc4ec34adb
 
 COCOAPODS: 1.8.4

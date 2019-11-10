@@ -7,5 +7,5 @@ target 'Taskgoo' do
 
   # Pods for Taskgoo
   pod 'Alamofire', '~> 5.0.0-rc.3'
-  pod 'p2.OAuth2', '~> 4.2'
+  pod 'p2.OAuth2', '~> 5.0'
 end
