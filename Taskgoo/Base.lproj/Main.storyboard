@@ -692,12 +692,12 @@
                         <toolbar key="toolbar" implicitIdentifier="24BD7BF1-5732-47DB-AC0B-1375C5BABD1D" autosavesConfiguration="NO" allowsUserCustomization="NO" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="GH6-fr-C9v">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="kXb-6D-rrD"/>
-                                <toolbarItem implicitItemIdentifier="7EDFEEB3-3008-4F58-BDA3-1AB428B033EA" label="Custom View" paletteLabel="Custom View" image="NSAddTemplate" sizingBehavior="auto" id="sd7-Ki-bgR">
+                                <toolbarItem implicitItemIdentifier="7EDFEEB3-3008-4F58-BDA3-1AB428B033EA" label="Custom View" paletteLabel="Custom View" image="NSRefreshTemplate" sizingBehavior="auto" id="sd7-Ki-bgR">
                                     <nil key="toolTip"/>
                                     <button key="view" verticalHuggingPriority="750" id="6zA-D5-YkG">
                                         <rect key="frame" x="18" y="14" width="40" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4qJ-8v-I1M">
+                                        <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4qJ-8v-I1M">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -751,7 +751,7 @@
                                                             <tableColumns>
                                                                 <tableColumn width="213" minWidth="40" maxWidth="1000" id="doj-6v-2ee">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                        <font key="font" metaFont="message" size="11"/>
+                                                                        <font key="font" metaFont="menu" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -834,6 +834,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSAddTemplate" width="11" height="11"/>
+        <image name="NSRefreshTemplate" width="11" height="15"/>
     </resources>
 </document>

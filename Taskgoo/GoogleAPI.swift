@@ -15,7 +15,7 @@ class GoogleAPI: OAuth2DataLoader {
     
     public init() {
         let oauth = OAuth2CodeGrant(settings: [
-            "keychain": false,
+            "keychain": true,
             "client_id": "921625277666-gqdl56ck6h6loesm40sa510862q5agl6.apps.googleusercontent.com",
             "client_secret": "5jq-QA7-ZCpInV87_Ju276vU",
             "authorize_uri": "https://accounts.google.com/o/oauth2/auth",

@@ -8,9 +8,10 @@
 
 import Foundation
 
-class Tasklist {
+class Tasklist : Encodable {
     var id: String = ""
     var title: String = ""
+    var tasks: [Task] = []
     
     init(id: String, title: String) {
         self.id = id
@@ -18,7 +19,9 @@ class Tasklist {
     }
 }
 
-class Task {
+class Task : Encodable {
     var tasklist: String = ""
-    var text: String = ""
+    var id: String = ""
+    var title: String = ""
+    var status: String = ""
 }
