@@ -8,20 +8,26 @@
 
 import Foundation
 
-class Tasklist : Encodable {
-    var id: String = ""
-    var title: String = ""
-    var tasks: [Task] = []
+class Tasklist : NSObject {
+    @objc dynamic var id: String = ""
+    @objc dynamic var title: String = ""
+    @objc dynamic var tasks: [Task] = []
     
     init(id: String, title: String) {
         self.id = id
         self.title = title
     }
+    
+    override var description: String {
+      get {
+        return "id: \(id) title: \(title)"
+      }
+    }
 }
 
-class Task : Encodable {
-    var tasklist: String = ""
-    var id: String = ""
-    var title: String = ""
-    var status: String = ""
+class Task : NSObject {
+    @objc dynamic var tasklist: String = ""
+    @objc dynamic var id: String = ""
+    @objc dynamic var title: String = ""
+    @objc dynamic var status: String = ""
 }

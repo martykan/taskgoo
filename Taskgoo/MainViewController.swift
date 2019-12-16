@@ -8,24 +8,25 @@
 
 import Cocoa
 
-class MainViewController: NSViewController {
+public class MainViewController: NSViewController {
 
+    @objc dynamic var taskLists = [Tasklist]()
     let googleApi = GoogleAPI()
-    var taskLists = [Tasklist]()
     
-    override var representedObject: Any? {
-        didSet {
-            
-        }
-    }
-
-    override func viewDidLoad() {
+    @IBOutlet var taskListsController: NSArrayController!
+    @IBOutlet var tasksController: NSArrayController!
+    
+    override public func viewDidLoad() {
         super.viewDidLoad()
-        loadData();
+        loadData()
     }
-
+    
+    func buttonReload() {
+        loadData()
+    }
+    
     func loadData() {
-        taskLists.removeAll()
+        self.taskLists.removeAll()
         googleApi.oauth2.authConfig.authorizeContext = view.window
         googleApi.tasklistList(callback: { dict, error in
             if let error = error {
@@ -39,7 +40,7 @@ class MainViewController: NSViewController {
                 self.taskLists.append(Tasklist(id: id, title: title))
                 self.loadTasks(tasklistId: id) { tasks in
                     self.taskLists[i].tasks = tasks
-                    NSLog(String(decoding: try! JSONEncoder().encode(self.taskLists), as: UTF8.self))
+                    self.taskListsController.content = self.taskLists
                 }
             }
         })
