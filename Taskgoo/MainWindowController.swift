@@ -10,4 +10,7 @@ import Foundation
 import Cocoa
 
 class MainWindowController : NSWindowController {
+    override func awakeFromNib() {
+        self.windowFrameAutosaveName = "MainWindow"
+    }
 }

@@ -69,4 +69,40 @@ public class MainViewController: NSViewController {
             }
         })
     }
+    
+    @IBAction func addTask(_ sender: NSTextFieldCell) {
+        let text = sender.stringValue
+        if text == "" {
+            return
+        }
+        sender.stringValue = ""
+        let lists = taskListsController.content as! [Tasklist]
+        let selectedList = lists[taskListsController.selectionIndex]
+        let task = Task()
+        task.title = text
+        selectedList.tasks.append(task)
+        googleApi.tasksAdd(tasklistId: selectedList.id, title: text, callback: { dict, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            print(dict)
+        })
+    }
+    
+    @IBAction func deleteTask(_ sender: Any) {
+        let lists = taskListsController.content as! [Tasklist]
+        let selectedList = lists[taskListsController.selectionIndex]
+        let task = selectedList.tasks[tasksController.selectionIndex]
+        selectedList.tasks.remove(at: tasksController.selectionIndex)
+        if task.id != "" {
+            googleApi.tasksDelete(tasklistId: selectedList.id, taskId: task.id, callback: { dict, error in
+                if let error = error {
+                    print(error)
+                    return
+                }
+                print(dict)
+            })
+        }
+    }
 }
