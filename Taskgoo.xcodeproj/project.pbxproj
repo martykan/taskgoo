@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C345FB3623A79E7E00F62B8C /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345FB3523A79E7E00F62B8C /* GoogleAPI.swift */; };
+		C39134FF23AEB94000D79684 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39134FE23AEB94000D79684 /* Utils.swift */; };
 		C39F5D6D23A7BA3900DE82C0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F5D6C23A7BA3900DE82C0 /* Models.swift */; };
 		C39F5D6E23A7C97B00DE82C0 /* Pods_Taskgoo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2268D28B706241B4741755D5 /* Pods_Taskgoo.framework */; };
 		C39F5D6F23A7C97B00DE82C0 /* Pods_Taskgoo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2268D28B706241B4741755D5 /* Pods_Taskgoo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -40,6 +41,7 @@
 		C345FB3523A79E7E00F62B8C /* GoogleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		C345FB3723A79EBF00F62B8C /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C345FB3823A79EBF00F62B8C /* p2_OAuth2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = p2_OAuth2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C39134FE23AEB94000D79684 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C39F5D6C23A7BA3900DE82C0 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		C39F5D7123A802C600DE82C0 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		C3CE937023661DB20021C42E /* Taskgoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskgoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +116,7 @@
 				C3CE937F23661DB70021C42E /* Info.plist */,
 				C3CE938023661DB70021C42E /* Taskgoo.entitlements */,
 				C3CE937723661DB20021C42E /* Taskgoo.xcdatamodeld */,
+				C39134FE23AEB94000D79684 /* Utils.swift */,
 			);
 			path = Taskgoo;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				C3CE937623661DB20021C42E /* MainViewController.swift in Sources */,
 				C3CE937423661DB20021C42E /* AppDelegate.swift in Sources */,
 				C39F5D7223A802C600DE82C0 /* MainWindowController.swift in Sources */,
+				C39134FF23AEB94000D79684 /* Utils.swift in Sources */,
 				C3CE937923661DB20021C42E /* Taskgoo.xcdatamodeld in Sources */,
 				C345FB3623A79E7E00F62B8C /* GoogleAPI.swift in Sources */,
 				C39F5D6D23A7BA3900DE82C0 /* Models.swift in Sources */,

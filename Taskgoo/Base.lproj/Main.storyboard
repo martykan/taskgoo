@@ -666,7 +666,7 @@
                                                             <tableColumns>
                                                                 <tableColumn width="184" minWidth="40" maxWidth="1000" id="MIT-Td-Uz9">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                        <font key="font" metaFont="label" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -761,7 +761,7 @@
                                                             <tableColumns>
                                                                 <tableColumn width="294" minWidth="40" maxWidth="1000" id="M6d-qQ-9mH">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                        <font key="font" metaFont="label" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -930,6 +930,14 @@
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
+                                                <connections>
+                                                    <action selector="buttonReload:" target="XfG-lQ-9wD" id="b0L-SG-vpQ"/>
+                                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="self.loading" id="qYB-Ul-lH4">
+                                                        <dictionary key="options">
+                                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                        </dictionary>
+                                                    </binding>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -956,6 +964,7 @@
                     <connections>
                         <outlet property="taskListsController" destination="fEs-ly-hwc" id="ATZ-jB-FwH"/>
                         <outlet property="tasksController" destination="mH3-0s-z27" id="cPF-h2-CIP"/>
+                        <outlet property="tasksTableView" destination="rsu-Zx-o9q" id="eaT-sk-w7u"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

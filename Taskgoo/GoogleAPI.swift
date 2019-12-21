@@ -74,6 +74,16 @@ class GoogleAPI: OAuth2DataLoader {
         request(req: req, callback: callback)
     }
     
+    func tasksMove(tasklistId: String, taskId: String, previousId: String?, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        var url = baseURL.appendingPathComponent("tasks/v1/lists/" + tasklistId + "/tasks/" + taskId + "/move")
+        if previousId != nil {
+            url = URL(string: url.absoluteString + "?previous=" + previousId!)!
+        }
+        var req = oauth2.request(forURL: url)
+        req.httpMethod = "POST"
+        request(req: req, callback: callback)
+    }
+    
     func tasksDelete(tasklistId: String, taskId: String, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
         let url = baseURL.appendingPathComponent("tasks/v1/lists/" + tasklistId + "/tasks/" + taskId)
         var req = oauth2.request(forURL: url)

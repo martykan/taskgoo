@@ -10,25 +10,35 @@ import Cocoa
 
 public class MainViewController: NSViewController {
 
-    @objc dynamic var taskLists = [Tasklist]()
     let googleApi = GoogleAPI()
+    let dragDropType = NSPasteboard.PasteboardType(rawValue: "public.data")
     
     @IBOutlet var taskListsController: NSArrayController!
     @IBOutlet var tasksController: NSArrayController!
+    @IBOutlet weak var tasksTableView: NSTableView!
+    
+    @objc dynamic var originalTasklist = [Tasklist]()
+    @objc dynamic var loading = false
     
     override public func viewDidLoad() {
         super.viewDidLoad()
+        tasksTableView.dataSource = self
+        tasksTableView.delegate = self
+        tasksTableView.registerForDraggedTypes([NSPasteboard.PasteboardType(rawValue: "public.data")])
         loadData()
     }
     
-    func buttonReload() {
+    @IBAction func buttonReload(_ sender: Any) {
         loadData()
     }
     
+    // MARK: Loading
     func loadData() {
-        self.taskLists.removeAll()
+        self.loading = true
+        self.originalTasklist.removeAll()
         googleApi.oauth2.authConfig.authorizeContext = view.window
         googleApi.tasklistList(callback: { dict, error in
+            self.loading = false
             if let error = error {
                 NSLog(error.asOAuth2Error.description)
                 return
@@ -37,10 +47,11 @@ public class MainViewController: NSViewController {
                 let item = item as! NSDictionary
                 let id = item["id"] as! String
                 let title = item["title"] as! String
-                self.taskLists.append(Tasklist(id: id, title: title))
+                self.originalTasklist.append(Tasklist(id: id, title: title))
                 self.loadTasks(tasklistId: id) { tasks in
-                    self.taskLists[i].tasks = tasks
-                    self.taskListsController.content = self.taskLists
+                    let tasks = tasks.sorted(by: { $0.position < $1.position })
+                    self.originalTasklist[i].tasks = tasks
+                    self.taskListsController.content = self.originalTasklist
                 }
             }
         })
@@ -60,6 +71,12 @@ public class MainViewController: NSViewController {
                 task.id = item["id"] as! String
                 task.title = item["title"] as! String
                 task.status = item["status"] as! String
+                task.note = item["notes"] as? String ?? ""
+                task.position = item["position"] as! String
+                task.observe(\.title, options: []) { (model, change) in
+                    print("change observed")
+                    print(change)
+                }
                 tasks.append(task)
             }
             if nextPage != nil {
@@ -70,6 +87,7 @@ public class MainViewController: NSViewController {
         })
     }
     
+    // MARK: API executors
     @IBAction func addTask(_ sender: NSTextFieldCell) {
         let text = sender.stringValue
         if text == "" {
@@ -80,13 +98,15 @@ public class MainViewController: NSViewController {
         let selectedList = lists[taskListsController.selectionIndex]
         let task = Task()
         task.title = text
-        selectedList.tasks.append(task)
+        selectedList.tasks.insert(task, at: 0)
         googleApi.tasksAdd(tasklistId: selectedList.id, title: text, callback: { dict, error in
             if let error = error {
+                // TODO: queue sync
                 print(error)
                 return
             }
-            print(dict)
+            let id = dict!["id"] as! String
+            selectedList.tasks[0].id = id
         })
     }
     
@@ -98,11 +118,61 @@ public class MainViewController: NSViewController {
         if task.id != "" {
             googleApi.tasksDelete(tasklistId: selectedList.id, taskId: task.id, callback: { dict, error in
                 if let error = error {
+                    // TODO: queue sync
                     print(error)
                     return
                 }
-                print(dict)
             })
         }
+    }
+    
+    func reorderItem(from: Int, to: Int) {
+        let lists = taskListsController.content as! [Tasklist]
+        let selectedList = lists[taskListsController.selectionIndex]
+        let targetIndex = from < to ? to - 1 : to
+        let task = selectedList.tasks.remove(at: from)
+        selectedList.tasks.insert(task, at: targetIndex)
+        let previousId = targetIndex > 0 ? selectedList.tasks[targetIndex-1].id : nil
+        googleApi.tasksMove(tasklistId: selectedList.id, taskId: task.id, previousId: previousId, callback: { dict, error in
+            if let error = error {
+                // TODO: queue sync
+                print(error)
+                return
+            }
+            print(dict)
+        })
+    }
+}
+
+extension MainViewController : NSTableViewDelegate, NSTableViewDataSource {
+    // MARK: Drag and drop reordering
+    public func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
+        let data = NSKeyedArchiver.archivedData(withRootObject: row)
+        let item = NSPasteboardItem()
+        item.setData(data, forType: self.dragDropType)
+        return item
+    }
+
+    public func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        
+        guard let source = info.draggingSource as? NSTableView,
+            source === tasksTableView
+            else { return [] }
+        
+        if dropOperation == .above {
+            return .move
+        }
+        return []
+    }
+    
+    public func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        let pb = info.draggingPasteboard
+        if let itemData = pb.pasteboardItems?.first?.data(forType: dragDropType),
+            let oldRow = NSKeyedUnarchiver.unarchiveObject(with: itemData) as? Int
+        {
+            reorderItem(from: oldRow, to: row)
+            return true
+        }
+        return false
     }
 }

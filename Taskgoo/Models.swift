@@ -30,4 +30,6 @@ class Task : NSObject {
     @objc dynamic var id: String = ""
     @objc dynamic var title: String = ""
     @objc dynamic var status: String = ""
+    @objc dynamic var position: String = ""
+    @objc dynamic var note: String = ""
 }
