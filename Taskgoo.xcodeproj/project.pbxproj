@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C345FB3623A79E7E00F62B8C /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = C345FB3523A79E7E00F62B8C /* GoogleAPI.swift */; };
-		C39134FF23AEB94000D79684 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39134FE23AEB94000D79684 /* Utils.swift */; };
-		C39F5D6D23A7BA3900DE82C0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F5D6C23A7BA3900DE82C0 /* Models.swift */; };
+		C39F5D6D23A7BA3900DE82C0 /* Tasklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F5D6C23A7BA3900DE82C0 /* Tasklist.swift */; };
 		C39F5D6E23A7C97B00DE82C0 /* Pods_Taskgoo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2268D28B706241B4741755D5 /* Pods_Taskgoo.framework */; };
 		C39F5D6F23A7C97B00DE82C0 /* Pods_Taskgoo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2268D28B706241B4741755D5 /* Pods_Taskgoo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C39F5D7223A802C600DE82C0 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39F5D7123A802C600DE82C0 /* MainWindowController.swift */; };
@@ -18,6 +17,9 @@
 		C3CE937923661DB20021C42E /* Taskgoo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3CE937723661DB20021C42E /* Taskgoo.xcdatamodeld */; };
 		C3CE937B23661DB70021C42E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3CE937A23661DB70021C42E /* Assets.xcassets */; };
 		C3CE937E23661DB70021C42E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3CE937C23661DB70021C42E /* Main.storyboard */; };
+		C3DAEC1123B164D600F297D4 /* TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DAEC1023B164D600F297D4 /* TableViewDelegate.swift */; };
+		C3DAEC1323B164F400F297D4 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DAEC1223B164F400F297D4 /* Task.swift */; };
+		C3DAEC1623B1652800F297D4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DAEC1523B1652800F297D4 /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,8 +43,7 @@
 		C345FB3523A79E7E00F62B8C /* GoogleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		C345FB3723A79EBF00F62B8C /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C345FB3823A79EBF00F62B8C /* p2_OAuth2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = p2_OAuth2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C39134FE23AEB94000D79684 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		C39F5D6C23A7BA3900DE82C0 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		C39F5D6C23A7BA3900DE82C0 /* Tasklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasklist.swift; sourceTree = "<group>"; };
 		C39F5D7123A802C600DE82C0 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		C3CE937023661DB20021C42E /* Taskgoo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskgoo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CE937323661DB20021C42E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +53,9 @@
 		C3CE937D23661DB70021C42E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C3CE937F23661DB70021C42E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3CE938023661DB70021C42E /* Taskgoo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Taskgoo.entitlements; sourceTree = "<group>"; };
+		C3DAEC1023B164D600F297D4 /* TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
+		C3DAEC1223B164F400F297D4 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		C3DAEC1523B1652800F297D4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,19 +110,29 @@
 		C3CE937223661DB20021C42E /* Taskgoo */ = {
 			isa = PBXGroup;
 			children = (
+				C345FB3523A79E7E00F62B8C /* GoogleAPI.swift */,
+				C3DAEC1423B1650D00F297D4 /* Models */,
 				C3CE937323661DB20021C42E /* AppDelegate.swift */,
 				C3CE937523661DB20021C42E /* MainViewController.swift */,
 				C39F5D7123A802C600DE82C0 /* MainWindowController.swift */,
-				C39F5D6C23A7BA3900DE82C0 /* Models.swift */,
-				C345FB3523A79E7E00F62B8C /* GoogleAPI.swift */,
+				C3DAEC1023B164D600F297D4 /* TableViewDelegate.swift */,
+				C3DAEC1523B1652800F297D4 /* Utils.swift */,
 				C3CE937A23661DB70021C42E /* Assets.xcassets */,
 				C3CE937C23661DB70021C42E /* Main.storyboard */,
 				C3CE937F23661DB70021C42E /* Info.plist */,
 				C3CE938023661DB70021C42E /* Taskgoo.entitlements */,
 				C3CE937723661DB20021C42E /* Taskgoo.xcdatamodeld */,
-				C39134FE23AEB94000D79684 /* Utils.swift */,
 			);
 			path = Taskgoo;
+			sourceTree = "<group>";
+		};
+		C3DAEC1423B1650D00F297D4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C39F5D6C23A7BA3900DE82C0 /* Tasklist.swift */,
+				C3DAEC1223B164F400F297D4 /* Task.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,13 +250,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3DAEC1323B164F400F297D4 /* Task.swift in Sources */,
+				C3DAEC1123B164D600F297D4 /* TableViewDelegate.swift in Sources */,
+				C3DAEC1623B1652800F297D4 /* Utils.swift in Sources */,
 				C3CE937623661DB20021C42E /* MainViewController.swift in Sources */,
 				C3CE937423661DB20021C42E /* AppDelegate.swift in Sources */,
 				C39F5D7223A802C600DE82C0 /* MainWindowController.swift in Sources */,
-				C39134FF23AEB94000D79684 /* Utils.swift in Sources */,
 				C3CE937923661DB20021C42E /* Taskgoo.xcdatamodeld in Sources */,
 				C345FB3623A79E7E00F62B8C /* GoogleAPI.swift in Sources */,
-				C39F5D6D23A7BA3900DE82C0 /* Models.swift in Sources */,
+				C39F5D6D23A7BA3900DE82C0 /* Tasklist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

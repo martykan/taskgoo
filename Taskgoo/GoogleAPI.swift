@@ -10,9 +10,7 @@ import Foundation
 import p2_OAuth2
 
 class GoogleAPI: OAuth2DataLoader {
-    
-    let baseURL = URL(string: "https://www.googleapis.com")!
-    
+        
     public init() {
         let oauth = OAuth2CodeGrant(settings: [
             "keychain": true,
@@ -49,45 +47,138 @@ class GoogleAPI: OAuth2DataLoader {
             }
         }
     }
-    
-    func tasklistList(callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
-        let url = baseURL.appendingPathComponent("tasks/v1/users/@me/lists")
-        let req = oauth2.request(forURL: url)
-        request(req: req, callback: callback)
+}
+
+protocol SyncOperation {
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void))
+}
+
+class TasklistList : SyncOperation {
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        return self
     }
     
-    func tasksList(tasklistId: String, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
-        let url = baseURL.appendingPathComponent("tasks/v1/lists/" + tasklistId + "/tasks")
-        let req = oauth2.request(forURL: url)
-        request(req: req, callback: callback)
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        let url = URL(string: "https://www.googleapis.com/tasks/v1/users/@me/lists")!
+        let req = googleApi.oauth2.request(forURL: url)
+        googleApi.request(req: req, callback: callback)
+    }
+}
+
+class TasksList : SyncOperation {
+    let tasklistId: String
+    
+    init(tasklistId: String) {
+        self.tasklistId = tasklistId
     }
     
-    func tasksAdd(tasklistId: String, title: String, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
-        let url = baseURL.appendingPathComponent("tasks/v1/lists/" + tasklistId + "/tasks")
-        var req = oauth2.request(forURL: url)
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        return self
+    }
+    
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        let url = URL(string: "https://www.googleapis.com/tasks/v1/lists/" + tasklistId + "/tasks?showCompleted=true")!
+        let req = googleApi.oauth2.request(forURL: url)
+        googleApi.request(req: req, callback: callback)
+    }
+}
+
+class TasksAdd : SyncOperation {
+    let task: Task
+    
+    init(task: Task) {
+        self.task = task
+    }
+    
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        return self
+    }
+    
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        let url = URL(string: "https://www.googleapis.com/tasks/v1/lists/" + task.tasklist + "/tasks")!
+        var req = googleApi.oauth2.request(forURL: url)
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.httpMethod = "POST"
         let body: Dictionary<String, Any> = [
-            "title": title
+            "title": task.title
         ]
         req.httpBody = try! JSONSerialization.data(withJSONObject: body)
-        request(req: req, callback: callback)
+        googleApi.request(req: req, callback: callback)
+    }
+}
+
+class TasksUpdate : SyncOperation {
+    let task: Task
+    let body: Data
+    
+    init(task: Task, body: Data) {
+        self.task = task
+        self.body = body
     }
     
-    func tasksMove(tasklistId: String, taskId: String, previousId: String?, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
-        var url = baseURL.appendingPathComponent("tasks/v1/lists/" + tasklistId + "/tasks/" + taskId + "/move")
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        if let id = tmpIdMap[self.task.id] {
+            self.task.id = id
+        }
+        return self
+    }
+    
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        let url = URL(string: "https://www.googleapis.com/tasks/v1/lists/" + task.tasklist + "/tasks/" + task.id)!
+        var req = googleApi.oauth2.request(forURL: url)
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpMethod = "PATCH"
+        req.httpBody = body
+        googleApi.request(req: req, callback: callback)
+    }
+}
+
+class TasksMove : SyncOperation {
+    let task: Task
+    let previousId: String?
+    
+    init(task: Task, previousId: String?) {
+        self.task = task
+        self.previousId = previousId
+    }
+    
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        if let id = tmpIdMap[self.task.id] {
+            self.task.id = id
+        }
+        return self
+    }
+    
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        var url = URL(string: "https://www.googleapis.com/tasks/v1/lists/" + task.tasklist + "/tasks/" + task.id + "/move")!
         if previousId != nil {
             url = URL(string: url.absoluteString + "?previous=" + previousId!)!
         }
-        var req = oauth2.request(forURL: url)
+        var req = googleApi.oauth2.request(forURL: url)
         req.httpMethod = "POST"
-        request(req: req, callback: callback)
+        googleApi.request(req: req, callback: callback)
+    }
+}
+
+class TasksDelete : SyncOperation {
+    let task: Task
+    
+    init(task: Task) {
+        self.task = task
     }
     
-    func tasksDelete(tasklistId: String, taskId: String, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
-        let url = baseURL.appendingPathComponent("tasks/v1/lists/" + tasklistId + "/tasks/" + taskId)
-        var req = oauth2.request(forURL: url)
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        if let id = tmpIdMap[self.task.id] {
+            self.task.id = id
+        }
+        return self
+    }
+    
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        let url = URL(string: "https://www.googleapis.com/tasks/v1/lists/" + task.tasklist + "/tasks/" + task.id)!
+        var req = googleApi.oauth2.request(forURL: url)
         req.httpMethod = "DELETE"
-        request(req: req, callback: callback)
+        googleApi.request(req: req, callback: callback)
     }
 }
