@@ -14,6 +14,7 @@ public class MainViewController: NSViewController {
     let googleApi = GoogleAPI()
     let dragDropType = NSPasteboard.PasteboardType(rawValue: "public.data")
     var taskContext = "TaskContext"
+    var tasklistContext = "TasklistContext"
     var separatorIndex = 3
     var lastIndex = 4
     var syncBacklog: [SyncOperation] = [] {
@@ -65,24 +66,43 @@ public class MainViewController: NSViewController {
         loadData()
     }
     
+    @IBAction func addTaskList(_ sender: Any) {
+        let msg = NSAlert()
+        msg.addButton(withTitle: "OK")
+        msg.addButton(withTitle: "Cancel")
+        msg.messageText = "New task list"
+        msg.informativeText = "Enter the title of the task list:"
+        msg.alertStyle = .informational
+
+        let txt = NSTextField(frame: NSRect(x: 0, y: 0, width: 300, height: 24))
+        txt.stringValue = ""
+
+        msg.accessoryView = txt
+        msg.beginSheetModal(for: self.view.window!) { response in
+            if (response == NSApplication.ModalResponse.alertFirstButtonReturn) {
+                let tasklist = Tasklist(id: "", title: txt.stringValue)
+                tasklist.addObserver(self, forKeyPath: "title", options: .new, context: &self.tasklistContext)
+                TasklistAdd(tasklist: tasklist).request(googleApi: self.googleApi) { dict, error in
+                    if let error = error {
+                        print(error)
+                        return
+                    }
+                    if let id = dict?["id"] as? String {
+                        tasklist.id = id
+                        self.tasklists.append(tasklist)
+                        self.taskListsController.content = self.tasklists
+                    }
+                }
+            }
+        }
+    }
+    
     @IBAction func buttonReload(_ sender: Any) {
         if !self.syncBacklog.isEmpty {
             runSyncBacklog()
             return
         }
         loadData()
-    }
-    
-    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &taskContext {
-            if let newValue = change![.newKey]  {
-                if let task = object as? Task {
-                    updateTask(task: task, key: keyPath!, newValue: newValue)
-                }
-            }
-            return
-        }
-        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
     }
     
     @IBAction func addDueDate(_ sender: Any) {
@@ -95,6 +115,26 @@ public class MainViewController: NSViewController {
     @IBAction func removeDueDate(_ sender: Any) {
         let task = tasksController.selectedObjects[0] as! Task
         task.dueDate = nil
+    }
+    
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if context == &taskContext {
+            if let newValue = change![.newKey]  {
+                if let task = object as? Task {
+                    updateTask(task: task, key: keyPath!, newValue: newValue)
+                }
+            }
+            return
+        }
+        if context == &tasklistContext {
+            if let newValue = change![.newKey]  {
+                if let tasklist = object as? Tasklist {
+                    updateTasklist(tasklist: tasklist)
+                }
+            }
+            return
+        }
+        super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
     }
     
     // MARK: Loading
@@ -117,7 +157,9 @@ public class MainViewController: NSViewController {
                 let item = item as! NSDictionary
                 let id = item["id"] as! String
                 let title = item["title"] as! String
-                self.tasklists.append(Tasklist(id: id, title: title))
+                let tasklist = Tasklist(id: id, title: title)
+                tasklist.addObserver(self, forKeyPath: "title", options: .new, context: &self.tasklistContext)
+                self.tasklists.append(tasklist)
                 self.loadTasks(tasklistId: id) { tasks in
                     self.tasks.append(contentsOf: tasks)
                 }
@@ -242,6 +284,29 @@ public class MainViewController: NSViewController {
                 print(error)
                 return
             }
+        })
+    }
+    
+    func updateTasklist(tasklist: Tasklist) {
+        TasklistUpdate(tasklist: tasklist).request(googleApi: googleApi, callback: { dict, error in
+            if let error = error {
+                print(error)
+                return
+            }
+        })
+    }
+    
+    @objc func deleteTasklist(_ sender: Any) {
+        let row = taskListsTableView.clickedRow
+        guard row >= 0 else { return }
+        let tasklist = self.tasklists[row]
+        TasklistDelete(tasklist: tasklist).request(googleApi: googleApi, callback: { dict, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            self.tasklists.remove(at: row)
+            self.taskListsController.content = self.tasklists
         })
     }
     

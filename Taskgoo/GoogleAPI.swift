@@ -29,12 +29,13 @@ class GoogleAPI: OAuth2DataLoader {
     
     func request(req: URLRequest, callback: @escaping ((OAuth2JSON?, Error?) -> Void)) {
         perform(request: req) { response in
-            for (key, value) in response.request.allHTTPHeaderFields ?? [:] {
-                // NSLog("Req Header: " + key + ": " + value)
+            if response.response.statusCode == 204 {
+                DispatchQueue.main.async {
+                    callback(nil, nil)
+                }
+                return
             }
-            // NSLog("Status: %d", response.response.statusCode)
             do {
-                // NSLog(String(decoding: try response.responseData(), as: UTF8.self))
                 let dict = try response.responseJSON()
                 DispatchQueue.main.async {
                     callback(dict, nil)
@@ -62,6 +63,73 @@ class TasklistList : SyncOperation {
     func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
         let url = URL(string: "https://www.googleapis.com/tasks/v1/users/@me/lists")!
         let req = googleApi.oauth2.request(forURL: url)
+        googleApi.request(req: req, callback: callback)
+    }
+}
+
+class TasklistAdd : SyncOperation {
+    let tasklist: Tasklist
+    
+    init(tasklist: Tasklist) {
+        self.tasklist = tasklist
+    }
+    
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        return self
+    }
+    
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        let url = URL(string: "https://www.googleapis.com/tasks/v1/users/@me/lists")!
+        var req = googleApi.oauth2.request(forURL: url)
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpMethod = "POST"
+        let body: Dictionary<String, Any> = [
+            "title": tasklist.title
+        ]
+        req.httpBody = try! JSONSerialization.data(withJSONObject: body)
+        googleApi.request(req: req, callback: callback)
+    }
+}
+
+class TasklistUpdate : SyncOperation {
+    let tasklist: Tasklist
+    
+    init(tasklist: Tasklist) {
+        self.tasklist = tasklist
+    }
+    
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        return self
+    }
+    
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        let url = URL(string: "https://www.googleapis.com/tasks/v1/users/@me/lists/" + tasklist.id)!
+        var req = googleApi.oauth2.request(forURL: url)
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpMethod = "PATCH"
+        let body: Dictionary<String, Any> = [
+            "title": tasklist.title
+        ]
+        req.httpBody = try! JSONSerialization.data(withJSONObject: body)
+        googleApi.request(req: req, callback: callback)
+    }
+}
+
+class TasklistDelete : SyncOperation {
+    let tasklist: Tasklist
+    
+    init(tasklist: Tasklist) {
+        self.tasklist = tasklist
+    }
+    
+    func tmpIdMap(_ tmpIdMap: [String : String]) -> SyncOperation {
+        return self
+    }
+    
+    func request(googleApi: GoogleAPI, callback: @escaping ((_ dict: OAuth2JSON?, _ error: Error?) -> Void)) {
+        let url = URL(string: "https://www.googleapis.com/tasks/v1/users/@me/lists/" + tasklist.id)!
+        var req = googleApi.oauth2.request(forURL: url)
+        req.httpMethod = "DELETE"
         googleApi.request(req: req, callback: callback)
     }
 }

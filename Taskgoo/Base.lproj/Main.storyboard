@@ -748,6 +748,9 @@
                                                 <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSAddTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oSl-QE-gIW">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
+                                                    <connections>
+                                                        <action selector="addTaskList:" target="XfG-lQ-9wD" id="614-iI-rrF"/>
+                                                    </connections>
                                                 </buttonCell>
                                             </button>
                                         </subviews>
@@ -896,10 +899,10 @@
                                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="self.searchString" id="pyD-WD-qJk"/>
                                                 </connections>
                                             </searchField>
-                                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F8Y-bh-32a">
+                                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F8Y-bh-32a">
                                                 <rect key="frame" x="16" y="12" width="295" height="16"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" placeholderString="􀈎  New task..." id="bbi-R2-lKa">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" focusRingType="none" placeholderString="􀈎  New task..." id="bbi-R2-lKa">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -957,6 +960,8 @@
                                                 <buttonCell key="cell" type="round" title="􀆅" bezelStyle="circular" alignment="center" borderStyle="border" inset="2" id="ecb-Vx-wyu">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                     <font key="font" metaFont="menu" size="14"/>
+                                                    <string key="keyEquivalent">d</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <binding destination="mH3-0s-z27" name="enabled" keyPath="selection.title" id="WFx-Mq-mJr">
@@ -998,6 +1003,10 @@
                                                 <buttonCell key="cell" type="roundTextured" title="􀈒" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wmb-a8-BGP">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="deleteTask:" target="XfG-lQ-9wD" id="U7A-3l-SA2"/>
@@ -1009,6 +1018,8 @@
                                                 <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="NSRefreshTemplate" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jYX-2k-nla">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                     <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent">r</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                 </buttonCell>
                                                 <connections>
                                                     <action selector="buttonReload:" target="XfG-lQ-9wD" id="b0L-SG-vpQ"/>
@@ -1074,6 +1085,8 @@
                                                 <buttonCell key="cell" type="roundTextured" title="􀋃" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DkL-qh-7Cr">
                                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                                     <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent">s</string>
+                                                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="systemYellowColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>

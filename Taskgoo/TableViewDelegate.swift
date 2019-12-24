@@ -17,6 +17,10 @@ extension MainViewController : NSTableViewDelegate, NSTableViewDataSource {
         tasksTableView.dataSource = self
         tasksTableView.delegate = self
         tasksTableView.registerForDraggedTypes([NSPasteboard.PasteboardType(rawValue: "public.data")])
+        
+        let taskListsMenu = NSMenu()
+        taskListsMenu.addItem(NSMenuItem(title: "Delete", action: #selector(deleteTasklist(_:)), keyEquivalent: ""))
+        taskListsTableView.menu = taskListsMenu
     }
     
     // MARK: Divider
