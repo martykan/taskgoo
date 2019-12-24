@@ -24,8 +24,10 @@
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Log out" id="0Kc-m8-LcG">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="actionLogout:" target="Voe-Tx-rLC" id="joh-nO-pnL"/>
+                                            </connections>
                                         </menuItem>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -666,7 +668,7 @@
                                                             <tableColumns>
                                                                 <tableColumn width="184" minWidth="40" maxWidth="1000" id="MIT-Td-Uz9">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                        <font key="font" metaFont="label" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -780,7 +782,7 @@
                                                             <tableColumns>
                                                                 <tableColumn width="294" minWidth="40" maxWidth="1000" id="M6d-qQ-9mH">
                                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
-                                                                        <font key="font" metaFont="label" size="11"/>
+                                                                        <font key="font" metaFont="controlContent" size="11"/>
                                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                     </tableHeaderCell>
@@ -944,6 +946,7 @@
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
                                                 <connections>
+                                                    <binding destination="mH3-0s-z27" name="value" keyPath="selection.note" id="9yK-gU-Uag"/>
                                                     <binding destination="mH3-0s-z27" name="hidden" keyPath="selection.title" id="BAs-Y3-auw">
                                                         <dictionary key="options">
                                                             <integer key="NSNoSelectionPlaceholder" value="1"/>
@@ -951,7 +954,6 @@
                                                             <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                                         </dictionary>
                                                     </binding>
-                                                    <binding destination="mH3-0s-z27" name="value" keyPath="selection.note" id="9yK-gU-Uag"/>
                                                 </connections>
                                             </textField>
                                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mRY-S1-ZuY">
@@ -964,13 +966,13 @@
                                                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                 </buttonCell>
                                                 <connections>
+                                                    <binding destination="mH3-0s-z27" name="value" keyPath="selection.done" id="538-kG-a2q"/>
                                                     <binding destination="mH3-0s-z27" name="enabled" keyPath="selection.title" id="WFx-Mq-mJr">
                                                         <dictionary key="options">
                                                             <integer key="NSNoSelectionPlaceholder" value="0"/>
                                                             <string key="NSValueTransformerName">NSIsNotNil</string>
                                                         </dictionary>
                                                     </binding>
-                                                    <binding destination="mH3-0s-z27" name="value" keyPath="selection.done" id="538-kG-a2q"/>
                                                 </connections>
                                             </button>
                                             <datePicker verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MKe-0n-Ufh">
@@ -1121,9 +1123,9 @@ CA
                 <arrayController id="fEs-ly-hwc"/>
                 <arrayController clearsFilterPredicateOnInsertion="NO" id="mH3-0s-z27">
                     <connections>
-                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="self.tasks" id="4eX-xJ-ndR"/>
                         <binding destination="fEs-ly-hwc" name="filterPredicate" keyPath="selection.filter" id="Nuw-b3-ZQK"/>
                         <binding destination="fEs-ly-hwc" name="sortDescriptors" keyPath="selection.sort" previousBinding="Nuw-b3-ZQK" id="0CX-Ev-3eI"/>
+                        <binding destination="XfG-lQ-9wD" name="contentArray" keyPath="self.tasks" id="4eX-xJ-ndR"/>
                     </connections>
                 </arrayController>
             </objects>
