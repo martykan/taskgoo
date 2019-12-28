@@ -1,5 +1,7 @@
-# taskgoo
-Native Google Tasks app for macOS written in Swift
+# Taskgoo
+Native Google Tasks app for macOS written in Swift.
+
+<img src="https://i.imgur.com/hW77LWP.png">
 
 ## Build
 
